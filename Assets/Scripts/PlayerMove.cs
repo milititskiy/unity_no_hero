@@ -104,15 +104,15 @@ public class PlayerMove : TacticsMove
     
     public void SelectedClick()
     {
-        Debug.Log("called");
+        
         if (currentlySelected == false)
         {
             objRendered.material = clear;
-            Debug.Log("if clear");
+            
         }
         else
         {
-            Debug.Log("else red");
+            
             objRendered.material = red;
 
         }

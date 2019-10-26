@@ -14,33 +14,59 @@ public class TurnManager : MonoBehaviour
 
     public static PlayerMove playerMove;
 
+    public enum BattleStates
+    {
+        START,
+        INCOMBAT,
+        NOT_INCOMBAT,
+        LOSE,
+        WIN
+    }
 
+    public static BattleStates currentState;
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentState = BattleStates.START;
     }
 
     
     // Update is called once per frame
     void Update()
     {
-        
-
-        if (turnTeam.Count == 0)
+        Debug.Log(currentState);
+        switch (currentState)
         {
             
-            if (inCombat == true)
-            {
-                
-                InitTeamTurnQueue();
-                
-            }
-            else
-            {
-                return;
-            }
+            case (BattleStates.START):
+                if(turnTeam.Count == 0)
+                {
+                    InitTeamTurnQueue();
+                }
+                break;
+            case (BattleStates.INCOMBAT):
+                //inCombat = true;
+                break;
+            case (BattleStates.NOT_INCOMBAT):
+                inCombat = false;
+                break;
         }
+
+
+        //if (turnTeam.Count == 0)
+        //{
+            
+        //    if (inCombat == true)
+        //    {
+                
+        //        InitTeamTurnQueue();
+                
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //}
 
 
     }
@@ -57,6 +83,7 @@ public class TurnManager : MonoBehaviour
                     {
                     //Debug.Log(unit);
                     turnTeam.Enqueue(unit);
+                    unit.inCombat = true;
                     
                     }
                     StartTurn();
@@ -68,7 +95,7 @@ public class TurnManager : MonoBehaviour
                     //Debug.Log(unit);
                     
                     turnTeam.Enqueue(unit);
-                    unit.move = 18;
+                    //unit.move = 18;
                    
                 }
                 
@@ -90,13 +117,22 @@ public class TurnManager : MonoBehaviour
             
             TacticsMove unit = turnTeam.Peek();
             unit.currentlySelected = true;
-            unit.GetComponent<PlayerMove>().SelectedClick();
+           
+            if (unit.tag == "Player")
+            {
+                
+                unit.GetComponent<PlayerMove>().SelectedClick();
+            }
+            else
+            {
+                unit.currentlySelected = false;
+            }
             unit.BeginTurn();
             
             
            
             
-            //Debug.Log(turnTeam.Peek().name);
+            
            
             
         }
@@ -107,7 +143,7 @@ public class TurnManager : MonoBehaviour
     {
        
         TacticsMove unit = turnTeam.Dequeue();
-        Debug.Log(unit.name);
+        //Debug.Log(unit.name);
         if(endedTurn == true)
         {
 
@@ -127,8 +163,13 @@ public class TurnManager : MonoBehaviour
 
         if (unit.currentlySelected == true)
         {
-            unit.currentlySelected = false;
-            unit.GetComponent<PlayerMove>().SelectedClick();
+            
+            if (unit.tag == "Player")
+            {
+                unit.currentlySelected = false;
+                unit.GetComponent<PlayerMove>().SelectedClick();
+            }
+            
         }
             
 
@@ -160,7 +201,10 @@ public class TurnManager : MonoBehaviour
     public static void AddUnit(TacticsMove unit)
     {
         List<TacticsMove> list;
-
+        if (units.ContainsKey("NPC"))
+        {
+            Debug.Log("NPC is present");
+        }
         if(!units.ContainsKey(unit.tag))
         {   
             list = new List<TacticsMove>();

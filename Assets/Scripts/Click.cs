@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Click : MonoBehaviour
+public class Click : TurnManager
 {
     [SerializeField]
     private LayerMask clickablesLayer;
     private List<GameObject> selectedObjects;
 
+    private GameObject objToSpawn;
     private void Start()
     {
         selectedObjects = new List<GameObject>();
+        
     }
     // Update is called once per frame
     void Update()
@@ -39,7 +41,7 @@ public class Click : MonoBehaviour
             {
 
                 PlayerMove playerMove = hit.collider.GetComponent<PlayerMove>();
-               
+
 
                 if (Input.GetKey("left ctrl"))
                 {
@@ -66,31 +68,31 @@ public class Click : MonoBehaviour
                         {
                             obj.GetComponent<PlayerMove>().currentlySelected = false;
                             obj.GetComponent<PlayerMove>().clickMe();
-                            
+
                         }
                         selectedObjects.Clear();
-                       
+
                     }
 
                 }
-                
+
                 selectedObjects.Add(hit.collider.gameObject);
-                playerMove.currentlySelected = true;
-                playerMove.clickMe();
-                
-                
-                
+                //playerMove.currentlySelected = true;
+                //playerMove.clickMe();
+
+
+
             }
-           
-            
+
+
         }
 
-       
 
 
-         
 
-       
+
+
+
     }
 
 
@@ -116,17 +118,37 @@ public class Click : MonoBehaviour
     }
 
     public void StartCombat()
-    {
-        //var inCombat = TurnManager.inCombat;
-        //TurnManager.InitTeamTurnQueue();
-
-        if (TurnManager.inCombat == false)
+    {   
+        if(currentState != BattleStates.INCOMBAT)
         {
-
-            TurnManager.inCombat = true;
-
+            if (TurnManager.inCombat == false)
+            {
+                TurnManager.inCombat = true;
+            }
+            currentState = BattleStates.INCOMBAT;
+            
         }
+       
+        Material red = Resources.Load("Red", typeof(Material)) as Material;
+        //objToSpawn = new GameObject("ORCS!!!");
+        MeshFilter meshFilter  = gameObject.AddComponent<MeshFilter>();
+        meshFilter.mesh = gameObject.GetComponent<MeshFilter>().mesh;
+        objToSpawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        MeshRenderer meshRenderer = objToSpawn.GetComponent<MeshRenderer>();
+        objToSpawn.AddComponent<NPCMove>();
+        meshRenderer.material = red;
+        Vector3 pos = new Vector3(0f,1.9f,6f);
+        Instantiate(objToSpawn, pos, Quaternion.identity);
+        Destroy(objToSpawn);
+
+       
+        
     }
+        
+       
+        
+
+
 
     public void StartGame()
     {

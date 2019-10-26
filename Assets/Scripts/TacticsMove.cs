@@ -16,9 +16,9 @@ public class TacticsMove : MonoBehaviour
     Tile currentTile;
 
     public bool moving = false;
-    public int move = 5;
+    public int move = 3;
     public float jumpHeight = 2;
-    public float moveSpeed = 6;
+    public float moveSpeed = 4;
     public float jumpVelocity = 4.5f;
 
 
@@ -37,6 +37,7 @@ public class TacticsMove : MonoBehaviour
 
     protected void Init()
     {
+       
         tiles = GameObject.FindGameObjectsWithTag("Tiles");
 
         halfHeight = GetComponent<Collider>().bounds.extents.y;
@@ -96,9 +97,6 @@ public class TacticsMove : MonoBehaviour
 
             if (t.distance < move)
             {
-
-
-
                 foreach (Tile tile in t.adjacencyList)
                 {
                     if (!tile.visited)
@@ -112,6 +110,9 @@ public class TacticsMove : MonoBehaviour
             }
         }
     }
+
+
+
 
 
     public void MoveToTile(Tile tile)
