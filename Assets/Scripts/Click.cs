@@ -10,6 +10,8 @@ public class Click : TurnManager
     private List<GameObject> selectedObjects;
 
     private GameObject objToSpawn;
+    private float minSpawn = 1;
+    private float maxSpawn = 18;
     private void Start()
     {
         selectedObjects = new List<GameObject>();
@@ -128,18 +130,8 @@ public class Click : TurnManager
             currentState = BattleStates.INCOMBAT;
             
         }
-       
-        Material red = Resources.Load("Red", typeof(Material)) as Material;
-        //objToSpawn = new GameObject("ORCS!!!");
-        MeshFilter meshFilter  = gameObject.AddComponent<MeshFilter>();
-        meshFilter.mesh = gameObject.GetComponent<MeshFilter>().mesh;
-        objToSpawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        MeshRenderer meshRenderer = objToSpawn.GetComponent<MeshRenderer>();
-        objToSpawn.AddComponent<NPCMove>();
-        meshRenderer.material = red;
-        Vector3 pos = new Vector3(0f,1.9f,6f);
-        Instantiate(objToSpawn, pos, Quaternion.identity);
-        Destroy(objToSpawn);
+        Spawn();
+        
 
        
         
@@ -156,4 +148,29 @@ public class Click : TurnManager
         TurnManager.InitTeamTurnQueue();
     }
 
+    public void Spawn()
+    {
+        Material red = Resources.Load("Green", typeof(Material)) as Material;
+        //objToSpawn = new GameObject("ORCS!!!");
+        MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
+        meshFilter.mesh = gameObject.GetComponent<MeshFilter>().mesh;
+        objToSpawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        MeshRenderer meshRenderer = objToSpawn.GetComponent<MeshRenderer>();
+        objToSpawn.AddComponent<NPCMove>();
+        meshRenderer.material = red;
+        float randomLocationX = Random.Range(Mathf.RoundToInt(minSpawn/2),Mathf.RoundToInt(maxSpawn/2));
+        float randomLocationZ = Random.Range(Mathf.RoundToInt(minSpawn / 2), Mathf.RoundToInt(maxSpawn / 2));
+        Debug.Log(randomLocationX);
+        Debug.Log(randomLocationZ);
+        if (randomLocationX%2 == 1 && randomLocationZ %2 == 1)
+        {
+            randomLocationX = randomLocationX + 1;
+            randomLocationZ = randomLocationZ + 1;
+        }
+        Debug.Log(randomLocationX);
+        Debug.Log(randomLocationZ);
+        Vector3 pos = new Vector3(randomLocationX,1.9F,randomLocationZ);
+        Instantiate(objToSpawn, pos, Quaternion.identity);
+        Destroy(objToSpawn);
+    }
 }
