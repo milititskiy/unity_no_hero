@@ -143,10 +143,10 @@ public class Click : TurnManager
 
 
 
-    public void StartGame()
+    public void StartAction()
     {
-        var inCombat = TurnManager.inCombat;
-        TurnManager.InitTeamTurnQueue();
+        //var inCombat = TurnManager.inCombat;
+        //TurnManager.InitTeamTurnQueue();
     }
 
     public void Spawn()
@@ -159,6 +159,7 @@ public class Click : TurnManager
         MeshRenderer meshRenderer = objToSpawn.GetComponent<MeshRenderer>();
         objToSpawn.AddComponent<NPCMove>();
         meshRenderer.material = red;
+        //true generator starts here
         tiles = GameObject.FindGameObjectsWithTag("Tiles");
         var index = Random.Range(0, tiles.Length);
         Tile tile = tiles[index].GetComponent<Tile>();
