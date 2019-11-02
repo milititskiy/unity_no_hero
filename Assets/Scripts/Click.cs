@@ -10,8 +10,9 @@ public class Click : TurnManager
     private List<GameObject> selectedObjects;
 
     private GameObject objToSpawn;
-    private float minSpawn = 1;
-    private float maxSpawn = 18;
+    private GameObject [] tiles;
+    private int minSpawn = 0;
+    private int maxSpawn = 9;
     private void Start()
     {
         selectedObjects = new List<GameObject>();
@@ -158,19 +159,15 @@ public class Click : TurnManager
         MeshRenderer meshRenderer = objToSpawn.GetComponent<MeshRenderer>();
         objToSpawn.AddComponent<NPCMove>();
         meshRenderer.material = red;
-        float randomLocationX = Random.Range(Mathf.RoundToInt(minSpawn/2),Mathf.RoundToInt(maxSpawn/2));
-        float randomLocationZ = Random.Range(Mathf.RoundToInt(minSpawn / 2), Mathf.RoundToInt(maxSpawn / 2));
-        Debug.Log(randomLocationX);
-        Debug.Log(randomLocationZ);
-        if (randomLocationX%2 == 1 && randomLocationZ %2 == 1)
+        tiles = GameObject.FindGameObjectsWithTag("Tiles");
+        var index = Random.Range(0, tiles.Length);
+        Tile tile = tiles[index].GetComponent<Tile>();
+        if (tile!= null && tile.walkable)
         {
-            randomLocationX = randomLocationX + 1;
-            randomLocationZ = randomLocationZ + 1;
+            var p = tile.transform.position;
+            Vector3 pos = new Vector3(p.x, 1.9F, p.z);
+            Instantiate(objToSpawn, pos, Quaternion.identity);
+            Destroy(objToSpawn);
         }
-        Debug.Log(randomLocationX);
-        Debug.Log(randomLocationZ);
-        Vector3 pos = new Vector3(randomLocationX,1.9F,randomLocationZ);
-        Instantiate(objToSpawn, pos, Quaternion.identity);
-        Destroy(objToSpawn);
     }
 }
