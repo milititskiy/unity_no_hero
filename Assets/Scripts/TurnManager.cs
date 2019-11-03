@@ -8,9 +8,9 @@ public class TurnManager : MonoBehaviour
     public static Queue<string> turnKey = new Queue<string>();
     public static Queue<TacticsMove> turnTeam = new Queue<TacticsMove>();
 
-    public static bool inCombat = false;
-    public static bool endedTurn = false;
-    public static bool currentlySelected = false;
+    public static bool inCombat;
+    public static bool endedTurn;
+    public static bool currentlySelected;
 
     public static PlayerMove playerMove;
 
@@ -118,7 +118,7 @@ public class TurnManager : MonoBehaviour
             TacticsMove unit = turnTeam.Peek();
             unit.currentlySelected = true;
            
-            if (unit.tag == "Player")
+            if (unit.CompareTag("Player"))
             {
                 
                 unit.GetComponent<PlayerMove>().SelectedClick();
@@ -164,7 +164,7 @@ public class TurnManager : MonoBehaviour
         if (unit.currentlySelected == true)
         {
             
-            if (unit.tag == "Player")
+            if (unit.CompareTag("Player"))
             {
                 unit.currentlySelected = false;
                 unit.GetComponent<PlayerMove>().SelectedClick();
