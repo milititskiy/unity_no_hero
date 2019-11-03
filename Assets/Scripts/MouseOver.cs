@@ -2,44 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseOver : Tile
+public class MouseOver : MonoBehaviour
 {
     
     Ray ray;
     RaycastHit hit;
     private LayerMask TilesLayer;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+   
 
     private void Update()
     {
+        OnMouseEnter();
+    }
+
+
+    // The mesh goes red when the mouse is over it...
+    void OnMouseEnter()
+    {
+        
+
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))
         {
-            
-            if (hit.collider.tag == "Tiles")
+            GameObject gameObject = hit.collider.gameObject;
+            if (hit.collider.CompareTag("Tiles"))
             {
-                //Debug.Log("Tiles are set");
+                Debug.Log("debug");
                 Tile tile = hit.collider.GetComponent<Tile>();
                 if (tile.selectable == true)
                 {
-                    
-                    
-                    Debug.Log("isSelectable");
-                    tile.GetComponent<Renderer>().material.color = Color.grey;
-                    
-
+                    hit.collider.GetComponent<Tile>().selectable = false;
+                    hit.collider.GetComponent<Tile>().hoverOn = true;
+                   
                 }
-                else
-                {
-                    tile.GetComponent<Renderer>().material.color = Color.blue;
-
-                }
-                
-                
                 
             }
 
@@ -47,41 +43,6 @@ public class MouseOver : Tile
 
 
         }
-    }
-
-
-    // The mesh goes red when the mouse is over it...
-    void OnMouseEnter()
-    {
-        //renderer.material.color = Color.black;
-        
-        //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //    GameObject gameObject = hit.collider.gameObject;
-        //    if(hit.collider.tag == "Tiles")
-        //    {
-        //        //Debug.Log("Tiles are set");
-        //        Tile tile = hit.collider.GetComponent<Tile>();
-        //        if (tile.selectable)
-        //        {
-        //            hit.collider.GetComponent<Tile>().selectable = false;
-        //            //tile.hoverOn = true;
-                    
-        //            Debug.Log("isSelectable");
-        //            //tile.GetComponent<Renderer>().material.color = Color.cyan;
-        //            //GetComponent<Renderer>().material.color = Color.clear;
-        //            GetComponent<Renderer>().material.color = Color.blue;
-
-        //        }
-        //        //GetComponent<MeshRenderer>().material.color = Color.clear; 
-        //        //renderer.material.color = Color.yellow;
-        //    }
-            
-            
-            
-            
-        //}
 
 
     }
@@ -95,6 +56,6 @@ public class MouseOver : Tile
     // ...and the mesh finally turns white when the mouse moves away.
     void OnMouseExit()
     {
-        GetComponent<Renderer>().material.color = Color.white;
+        //GetComponent<Renderer>().material.color = Color.white;
     }
 }

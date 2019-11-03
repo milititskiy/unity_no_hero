@@ -43,7 +43,10 @@ public class Tile : MonoBehaviour
             
             GetComponent<Renderer>().material.color = Color.red;
         }
-        
+        else if (hoverOn)
+        {
+            GetComponent<Renderer>().material.color = Color.blue;
+        }
         else
         {
             GetComponent<Renderer>().material.color = Color.white;
@@ -56,6 +59,7 @@ public class Tile : MonoBehaviour
         current = false;
         target = false;
         selectable = false;
+        hoverOn = false;
 
         visited = false;
         parent = null;
