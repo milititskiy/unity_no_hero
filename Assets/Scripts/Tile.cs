@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public bool current = false;
     public bool target = false;
     public bool selectable = false;
+    public bool hoverOn = false;
 
     public List<Tile> adjacencyList = new List<Tile>();
 
@@ -27,19 +28,22 @@ public class Tile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if(current){
             GetComponent<Renderer>().material.color = Color.magenta;
         }
         else if(target)
         {
+            Debug.Log(target);
             GetComponent<Renderer>().material.color = Color.green;
         }
         else if(selectable)
         {
+            
             GetComponent<Renderer>().material.color = Color.red;
         }
+        
         else
         {
             GetComponent<Renderer>().material.color = Color.white;
@@ -68,10 +72,14 @@ public class Tile : MonoBehaviour
         CheckTile(Vector3.right,jumpHeight,target);
         CheckTile(-Vector3.right,jumpHeight,target);
         //diagonal movement
-        var plus = Vector3.right + Vector3.forward;
-        var minus = -Vector3.right + -Vector3.forward;
-        CheckTile(plus,jumpHeight,target);
-        CheckTile(minus,jumpHeight,target);
+        var plusRight = Vector3.right + Vector3.forward;
+        var minusRight = -Vector3.right + -Vector3.forward;
+        var plusLeft = Vector3.left + Vector3.forward;
+        var minusLeft = -Vector3.left + -Vector3.forward;
+        CheckTile(plusRight,jumpHeight,target);
+        CheckTile(minusRight,jumpHeight,target);
+        CheckTile(plusLeft, jumpHeight, target);
+        CheckTile(minusLeft, jumpHeight, target);
     }
 
     public void CheckTile(Vector3 direction,float jumpHeight,Tile target)

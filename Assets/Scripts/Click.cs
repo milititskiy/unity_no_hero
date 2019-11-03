@@ -11,8 +11,10 @@ public class Click : TurnManager
 
     private GameObject objToSpawn;
     private GameObject [] tiles;
-    private int minSpawn = 0;
-    private int maxSpawn = 9;
+
+    private Color startcolor;
+    Renderer rend;
+
     private void Start()
     {
         selectedObjects = new List<GameObject>();
@@ -171,4 +173,7 @@ public class Click : TurnManager
             Destroy(objToSpawn);
         }
     }
+
+
+    
 }
