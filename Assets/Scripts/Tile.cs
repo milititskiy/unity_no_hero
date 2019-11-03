@@ -63,10 +63,15 @@ public class Tile : MonoBehaviour
     public void FindNeighbors(float jumpHeight,Tile target)
     {
         Reset();
-        CheckTile(Vector3.forward,jumpHeight,target);
-        CheckTile(-Vector3.forward,jumpHeight,target);
+        //CheckTile(Vector3.forward,jumpHeight,target);
+        //CheckTile(-Vector3.forward,jumpHeight,target);
         CheckTile(Vector3.right,jumpHeight,target);
         CheckTile(-Vector3.right,jumpHeight,target);
+        //diagonal movement
+        var plus = Vector3.right + Vector3.forward;
+        var minus = -Vector3.right + -Vector3.forward;
+        CheckTile(plus,jumpHeight,target);
+        CheckTile(minus,jumpHeight,target);
     }
 
     public void CheckTile(Vector3 direction,float jumpHeight,Tile target)
@@ -81,7 +86,7 @@ public class Tile : MonoBehaviour
             {   
                 RaycastHit hit;
                 if(!Physics.Raycast(tile.transform.position,Vector3.up,out hit,1) || (tile == target))
-                {
+                {  
                     adjacencyList.Add(tile);
                 }
 
