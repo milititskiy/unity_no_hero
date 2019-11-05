@@ -1,9 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
-{   
+{
+    //Tiles position in a grid
+    public int x;
+    public int y;
+    public int z;
+
     public bool walkable = true;
     public bool current = false;
     public bool target = false;
@@ -11,6 +17,8 @@ public class Tile : MonoBehaviour
     public bool hoverOn = false;
 
     public List<Tile> adjacencyList = new List<Tile>();
+
+    public GameObject worldObject;
 
     //For BFS (breadth first search)
     public bool visited = false;
@@ -35,7 +43,7 @@ public class Tile : MonoBehaviour
         }
         else if(target)
         {
-            Debug.Log(target);
+            
             GetComponent<Renderer>().material.color = Color.green;
         }
         else if(selectable)
@@ -68,23 +76,29 @@ public class Tile : MonoBehaviour
         f = g = h = 0;
     }
 
+    
+
+    
+
     public void FindNeighbors(float jumpHeight,Tile target)
     {
         Reset();
-        //CheckTile(Vector3.forward,jumpHeight,target);
-        //CheckTile(-Vector3.forward,jumpHeight,target);
+        CheckTile(Vector3.forward,jumpHeight,target);
+        CheckTile(-Vector3.forward,jumpHeight,target);
         CheckTile(Vector3.right,jumpHeight,target);
         CheckTile(-Vector3.right,jumpHeight,target);
         //diagonal movement
-        var plusRight = Vector3.right + Vector3.forward;
-        var minusRight = -Vector3.right + -Vector3.forward;
-        var plusLeft = Vector3.left + Vector3.forward;
-        var minusLeft = -Vector3.left + -Vector3.forward;
-        CheckTile(plusRight,jumpHeight,target);
-        CheckTile(minusRight,jumpHeight,target);
-        CheckTile(plusLeft, jumpHeight, target);
-        CheckTile(minusLeft, jumpHeight, target);
+        //var plusRight = Vector3.right + Vector3.forward;
+        //var minusRight = -Vector3.right + -Vector3.forward;
+        //var plusLeft = Vector3.left + Vector3.forward;
+        //var minusLeft = -Vector3.left + -Vector3.forward;
+        //CheckTile(plusRight,jumpHeight,target);
+        //CheckTile(minusRight,jumpHeight,target);
+        //CheckTile(plusLeft, jumpHeight, target);
+        //CheckTile(minusLeft, jumpHeight, target);
     }
+
+    
 
     public void CheckTile(Vector3 direction,float jumpHeight,Tile target)
     {   

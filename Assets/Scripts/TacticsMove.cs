@@ -12,7 +12,7 @@ public class TacticsMove : MonoBehaviour
     List<Tile> selectableTiles = new List<Tile>();
     GameObject[] tiles;
 
-    Stack<Tile> path = new Stack<Tile>();
+    public Stack<Tile> path = new Stack<Tile>();
     Tile currentTile;
 
     public bool moving = false;
@@ -50,6 +50,7 @@ public class TacticsMove : MonoBehaviour
 
     public void GetCurrentTile()
     {
+        
         currentTile = GetTargetTile(gameObject);
         currentTile.current = true;
     }
@@ -93,6 +94,7 @@ public class TacticsMove : MonoBehaviour
         {
             Tile t = process.Dequeue();
             selectableTiles.Add(t);
+            
             t.selectable = true;
 
             if (t.distance < move)
@@ -126,6 +128,8 @@ public class TacticsMove : MonoBehaviour
         {
             path.Push(next);
             next = next.parent;
+            //Debug.Log(next.transform.position);
+            
         }
     }
 
@@ -324,6 +328,7 @@ public class TacticsMove : MonoBehaviour
         {
             tempPath.Push(next);
             next = next.parent;
+            
         }
 
         if(tempPath.Count <= move)
@@ -335,8 +340,8 @@ public class TacticsMove : MonoBehaviour
         for(int i = 0;i <= move;i++)
         {
             endTile = tempPath.Pop();
+            
         }
-
         return endTile;
 
     }
@@ -350,6 +355,7 @@ public class TacticsMove : MonoBehaviour
         List<Tile> closedList = new List<Tile>();
 
         openList.Add(currentTile);
+        
         //currentTile.parent = ??
         currentTile.h = Vector3.Distance(currentTile.transform.position, target.transform.position);
         currentTile.f = currentTile.h;
@@ -360,7 +366,7 @@ public class TacticsMove : MonoBehaviour
             Tile t = FindLowestF(openList);
 
             closedList.Add(t);
-
+            
             if( t == target)
             {   //todo
                 actualTargetTile = FindEndTile(t);
@@ -396,7 +402,7 @@ public class TacticsMove : MonoBehaviour
                     tile.f = tile.g + tile.h;
 
                     openList.Add(tile);
-
+                    
                 }
 
 

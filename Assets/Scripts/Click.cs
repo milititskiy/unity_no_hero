@@ -140,7 +140,7 @@ public class Click : TurnManager
         
     }
         
-       
+    
         
 
 
@@ -169,7 +169,7 @@ public class Click : TurnManager
         {
             var p = tile.transform.position;
             Vector3 pos = new Vector3(p.x, 1.9F, p.z);
-            Instantiate(objToSpawn, pos, Quaternion.identity);
+            Instantiate(objToSpawn,pos, Quaternion.identity);
             Destroy(objToSpawn);
         }
     }
