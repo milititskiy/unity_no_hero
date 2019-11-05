@@ -17,8 +17,8 @@ public class MouseOver : MonoBehaviour
     private void Start()
     {
         line = GetComponent<LineRenderer>();
-        //line.enabled = false;
         line.useWorldSpace = true;
+        
     }
 
     

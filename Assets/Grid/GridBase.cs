@@ -7,6 +7,7 @@ namespace SA.TB
 {
     public class GridBase : Tile
     {
+        public bool isInit;
         public int sizeX = 9;
         public int sizeY = 1;
         public int sizeZ = 9;
@@ -31,7 +32,10 @@ namespace SA.TB
             if (debugTile)
                 debugTileObj = WorldTile();
             Check();
-            CreadeGrid();
+            CreateGrid();
+
+            GManager.singleton.Init();
+            isInit = true;
         }
 
         void Check()
@@ -64,7 +68,7 @@ namespace SA.TB
             }
         }
 
-        void CreadeGrid()
+        void CreateGrid()
         {
             grid = new Tile[sizeX, sizeY, sizeZ];
             for(int y = 0; y < sizeY; y++)
@@ -75,7 +79,7 @@ namespace SA.TB
                 ylvl.y = y;
                 yLevels.Add(ylvl);
 
-                //create colision
+                CreateCollision(y);
 
             for(int x = 0;x < sizeX; x++)
                 {
@@ -90,10 +94,10 @@ namespace SA.TB
 
                         if(debugTile)
                         {
-                            Vector3 targetPosition = WorldCoordinatedFromTile(x, y, z);
+                            Vector3 targetPosition = GetWorldCoordinatesFromTile(x, y, z);
                             GameObject go = Instantiate(debugTileObj,targetPosition,Quaternion.identity) as GameObject;
                             go.transform.parent = ylvl.tileParent.transform;
-                            
+                            go.SetActive(true);
                             
 
                         }
@@ -103,11 +107,25 @@ namespace SA.TB
                 }
             }
         }
-        public Tile GetWorldFromWorldPosition(Vector3 wp)
+
+        void CreateCollision(int y)
         {
-            int x = Mathf.RoundToInt(wp.x / 0.9F);
-            int y = Mathf.RoundToInt(wp.y / 0.9F);
-            int z = Mathf.RoundToInt(wp.z / 0.9F);
+            YLevels lvl = yLevels[y];
+            GameObject go = new GameObject();
+            BoxCollider box = go.AddComponent<BoxCollider>();
+            box.size = new Vector3(sizeX * sizeY + (scaleXZ * 2),
+                0.2f, sizeZ + (scaleXZ * 2));
+            box.transform.position = new Vector3((sizeX * scaleXZ) * .5f - (scaleXZ * .5f),
+                y * scaleY, (sizeZ * scaleXZ) * 0.5f - (scaleXZ * .5f));
+
+            lvl.collisionObj = go;
+            lvl.collisionObj.name = "lvl" + y + "collision";
+        }
+        public Tile GetTileFromWorldPosition(Vector3 wp)
+        {
+            int x = Mathf.RoundToInt(wp.x / scaleXZ);
+            int y = Mathf.RoundToInt(wp.y / scaleY);
+            int z = Mathf.RoundToInt(wp.z / scaleXZ);
 
             return GetTile(x, y, z);
         }
@@ -122,7 +140,7 @@ namespace SA.TB
 
         }
 
-        public Vector3 WorldCoordinatedFromTile(int x, int y, int z)
+        public Vector3 GetWorldCoordinatesFromTile(int x, int y, int z)
         {
             Vector3 r = Vector3.zero;
             r.x = x * scaleXZ;
@@ -144,11 +162,12 @@ namespace SA.TB
             cube.tag = "Tiles";
             cube.transform.localScale = Vector3.one * 2.0f;
             cube.GetComponentInChildren<MeshRenderer>().material = debugMaterial;
+            go.SetActive(false);
+            return cube;
+        }
            
             
-            return cube;
 
-        }
 
         public static GridBase singleton;
          void Awake()
