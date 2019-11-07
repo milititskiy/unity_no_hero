@@ -4606,7 +4606,7 @@ GameObject:
   - component: {fileID: 639673308}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4698,6 +4698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shortPath: []
+  playerPosList: []
   curUnit: {fileID: 639673305}
   player: {fileID: 0}
 --- !u!114 &639673307
@@ -11989,6 +11990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shortPath: []
+  playerPosList: []
   curUnit: {fileID: 0}
   player: {fileID: 0}
 --- !u!120 &1547816072

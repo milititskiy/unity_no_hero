@@ -82,6 +82,7 @@
                         if (t.selectable)
                         {   //todo:move target
                             MoveToTile(t);
+                            
                         }
                     }
                 

@@ -11,7 +11,7 @@ public class Blashek : PlayerMove
     void Start()
     {
         
-        //CharBlashek();
+        CharBlashek();
     }
 
     GameObject CharBlashek()
@@ -27,7 +27,7 @@ public class Blashek : PlayerMove
         capsule.name = "Blashek";
         capsule.transform.position = new Vector3(4, 2, 6);
         
-        Vector3 pos = new Vector3(4,1,6);
+        Vector3 pos = new Vector3(4,2,6);
         Instantiate(capsule, pos, Quaternion.identity);
         Destroy(capsule);
         return capsule;
