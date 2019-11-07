@@ -58,7 +58,7 @@ namespace SA.TB
             FindTile();
             if(unitTile == null && curUnit != null)
             {
-                unitTile = grid.GetTileFromWorldPosition(curUnit.transform.position);
+                //unitTile = grid.GetTileFromWorldPosition(curUnit.transform.position);
             }
             if (unitTile == null)
                 return;
@@ -66,6 +66,7 @@ namespace SA.TB
             if(prevTile != curTile)
             {
                //PathfindMaster.GetInstance().RequestPathFind(unitTile,curTile,PathFinderCallback);
+
             }
 
             prevTile = curTile;

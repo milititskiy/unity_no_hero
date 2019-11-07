@@ -12,7 +12,8 @@ namespace SA.TB
         public int sizeY = 1;
         public int sizeZ = 9;
         public float scaleXZ = 2.0f;
-        public float scaleY = 2.0f;
+        //public float scaleXZ = 0.5f;
+        public float scaleY = 2.3f;
 
         public bool debugTile = true;
         public Material debugMaterial;
@@ -34,7 +35,8 @@ namespace SA.TB
             Check();
             CreateGrid();
 
-            GManager.singleton.Init();
+            //GManager.singleton.Init();
+            MouseOver.singleton.Init();
             isInit = true;
         }
 
