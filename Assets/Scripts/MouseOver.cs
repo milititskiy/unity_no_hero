@@ -15,7 +15,7 @@ public class MouseOver : MonoBehaviour
     GameObject currentTile;
 
     public Transform curUnit;
-    public PlayerMove player;
+    
     bool hasPath;
 
     Tile unitTile;
@@ -41,8 +41,10 @@ public class MouseOver : MonoBehaviour
         
         GameObject go = new GameObject();
         go.transform.localPosition = new Vector3(0,1.5f,0);
+        Material red = Resources.Load("Green", typeof(Material)) as Material;
         go.name = "move line";
         line = go.AddComponent<LineRenderer>();
+        line.material = red;
         line.useWorldSpace = false;
         line.startWidth = 0.2f;
         line.endWidth = 0.2f;
@@ -58,7 +60,7 @@ public class MouseOver : MonoBehaviour
 
     private void Update()
     {
-        //OnMouseEnter();
+        
         OnMouseOver();
         
     }
@@ -66,7 +68,7 @@ public class MouseOver : MonoBehaviour
 
     
 
-    //void OnMouseEnter()
+    
     void OnMouseOver()
     {
         
@@ -120,16 +122,16 @@ public class MouseOver : MonoBehaviour
 
 
 
-                //else
-                //{
+                else
+                {
 
 
 
-                //    line.positionCount = 0;
-                //    shortPath.Clear();
+                    line.positionCount = 0;
+                    shortPath.Clear();
 
 
-                //}
+                }
 
 
                 //else 
@@ -167,26 +169,23 @@ public class MouseOver : MonoBehaviour
             
         }
 
-        if (shortPath.Count > 0)
-        {
-            //Debug.Log("> than 0");
-        }
+        
         if (player.moving)
         {
-            
-            Debug.Log("separator");
+
+            //Debug.Log("separator");
             playerPosList.Clear();
-            for (int i = shortPath.Count -1; i >= 0; i--)
+            for (int i = shortPath.Count - 1; i >= 0; i--)
             {
                 shortPath.RemoveAt(i);
                 Debug.Log(shortPath.Count);
                 var zero = Vector3.zero;
                 line.SetPosition(i, zero);
-                
+
             }
-            var playerPos = player.transform;
-            playerPosList.Add(playerPos);
-            
+            //var playerPos = player.transform;
+            //playerPosList.Add(playerPos);
+
             //Debug.Log(playerPosList[playerPosList.Count -1].transform.position);
 
             //curTile = GridBase.singleton.GetTileFromWorldPosition(player.transform.position);
@@ -197,22 +196,22 @@ public class MouseOver : MonoBehaviour
 
             //line.positionCount = 0;
             //shortPath.Clear();
-            for (int i = 0; i < shortPath.Count; i++)
-            {
-                //playerPosList.Add(playerPos);
-                var l1 = playerPosList;
-                var ls = shortPath;
-                //if(l1[i].position == shortPath[i].transform.position)
-                //{
-                //    Debug.Log("Commit");
-                //}
-            }
+            //for (int i = 0; i < shortPath.Count; i++)
+            //{
+            //playerPosList.Add(playerPos);
+            //var l1 = playerPosList;
+            //var ls = shortPath;
+            //if(l1[i].position == shortPath[i].transform.position)
+            //{
+            //    Debug.Log("Commit");
+            //}
+        }
             //shortPath.Clear();
         }
-        else
-        {
+        //else
+        //{
             //Debug.Log("not moving");
-        }
+        //}
 
     }
 
@@ -249,4 +248,4 @@ public class MouseOver : MonoBehaviour
 
 
 
-}
+

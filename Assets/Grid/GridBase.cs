@@ -87,7 +87,7 @@ namespace SA.TB
                 {
                     for(int z = 0;z < sizeZ; z++)
                     {
-                        Tile n = gameObject.AddComponent<Tile>();
+                        Tile n = new Tile();
                         n.x = x;
                         n.y = y;
                         n.z = z;
