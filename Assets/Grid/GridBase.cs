@@ -12,8 +12,8 @@ namespace SA.TB
         public int sizeY = 1;
         public int sizeZ = 9;
         public float scaleXZ = 2.0f;
-        //public float scaleXZ = 0.5f;
         public float scaleY = 2.3f;
+      
 
         public bool debugTile = true;
         public Material debugMaterial;
