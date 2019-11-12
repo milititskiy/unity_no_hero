@@ -96,7 +96,7 @@ public class TurnManager : MonoBehaviour
                     //Debug.Log(unit);
                     
                     turnTeam.Enqueue(unit);
-                    //unit.move = 18;
+                    
                    
                 }
                 

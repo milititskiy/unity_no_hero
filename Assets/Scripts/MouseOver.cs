@@ -15,14 +15,14 @@ public class MouseOver : MonoBehaviour
     GameObject currentTile;
 
     public Transform curUnit;
-    public PlayerMove player;
+
     bool hasPath;
 
     Tile unitTile;
     Tile curTile;
     Tile prevTile;
 
-    
+
 
 
     GridBase grid;
@@ -36,13 +36,15 @@ public class MouseOver : MonoBehaviour
     }
     public void Init()
     {
-        Vector3 worldPos = GridBase.singleton.GetWorldCoordinatesFromTile(0,1,0);
+        Vector3 worldPos = GridBase.singleton.GetWorldCoordinatesFromTile(0, 1, 0);
         curUnit.transform.position = worldPos;
-        
+
         GameObject go = new GameObject();
-        go.transform.localPosition = new Vector3(0,1.5f,0);
+        go.transform.localPosition = new Vector3(0, 1.5f, 0);
+        Material red = Resources.Load("Green", typeof(Material)) as Material;
         go.name = "move line";
         line = go.AddComponent<LineRenderer>();
+        line.material = red;
         line.useWorldSpace = false;
         line.startWidth = 0.2f;
         line.endWidth = 0.2f;
@@ -58,50 +60,50 @@ public class MouseOver : MonoBehaviour
 
     private void Update()
     {
-        //OnMouseEnter();
+
         OnMouseOver();
-        
+
     }
 
 
-    
 
-    //void OnMouseEnter()
+
+
     void OnMouseOver()
     {
-        
-        
-        
+
+
+
         //Debug.Log(curUnit.transform.position);
         //curTile = GridBase.singleton.GetWorldCoordinatesFromTile(p, Mathf.RoundToInt(p.y), Mathf.RoundToInt(p.z));
-        
-       
-        
+
+
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         PlayerMove player = GetComponent<PlayerMove>();
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            
+
 
             Tile tile = hit.collider.GetComponent<Tile>();
-            
+
             if (hit.collider.CompareTag("Tiles"))
             {
                 //if (tile.selectable == true)
-                if(tile.visited)
+                if (tile.visited)
                 {
                     tile.selectable = false;
                     tile.hoverOn = true;
                     //tile.target = true;
-                    
+
                     shortPath.Clear();
                     Tile next = tile;
                     while (next != null)
                     {
                         shortPath.Add(next);
                         next = next.parent;
-                        
+
                     }
 
                     line.positionCount = shortPath.Count;
@@ -110,26 +112,26 @@ public class MouseOver : MonoBehaviour
 
                         line.SetPosition(i, shortPath[i].transform.position);
                         //Debug.Log(shortPath[i].transform.position);
-                        
+
 
                     }
-                    
-                    
+
+
                 }
 
 
 
 
-                //else
-                //{
+                else
+                {
 
 
 
-                //    line.positionCount = 0;
-                //    shortPath.Clear();
+                    line.positionCount = 0;
+                    shortPath.Clear();
 
 
-                //}
+                }
 
 
                 //else 
@@ -164,44 +166,47 @@ public class MouseOver : MonoBehaviour
                 //}
             }
 
-            
+
         }
 
-        if (shortPath.Count > 0)
-        {
-            //Debug.Log("> than 0");
-        }
+
         if (player.moving)
-        {
-            
+
+        {//Got the trace waypoint to dissappear
+
             Debug.Log("separator");
-            playerPosList.Clear();
-            for (int i = shortPath.Count -1; i >= 0; i--)
+
             {
-                shortPath.RemoveAt(i);
-                Debug.Log(shortPath.Count);
-                var zero = Vector3.zero;
-                line.SetPosition(i, zero);
-                
-            }
-            var playerPos = player.transform;
-            playerPosList.Add(playerPos);
-            
-            //Debug.Log(playerPosList[playerPosList.Count -1].transform.position);
 
-            //curTile = GridBase.singleton.GetTileFromWorldPosition(player.transform.position);
+                //Debug.Log("separator");
 
-            //Debug.Log(curTile.transform.position);
+                playerPosList.Clear();
+                for (int i = shortPath.Count - 1; i >= 0; i--)
+                {
+                    shortPath.RemoveAt(i);
+                    Debug.Log(shortPath.Count);
+                    var zero = Vector3.zero;
+                    line.SetPosition(i, zero);
 
-            //Debug.Log(curTile.transform.position);
-
-            //line.positionCount = 0;
-            //shortPath.Clear();
-            for (int i = 0; i < shortPath.Count; i++)
-            {
+                }
+                //var playerPos = player.transform;
                 //playerPosList.Add(playerPos);
-                var l1 = playerPosList;
-                var ls = shortPath;
+
+                //Debug.Log(playerPosList[playerPosList.Count -1].transform.position);
+
+                //curTile = GridBase.singleton.GetTileFromWorldPosition(player.transform.position);
+
+                //Debug.Log(curTile.transform.position);
+
+                //Debug.Log(curTile.transform.position);
+
+                //line.positionCount = 0;
+                //shortPath.Clear();
+                //for (int i = 0; i < shortPath.Count; i++)
+                //{
+                //playerPosList.Add(playerPos);
+                //var l1 = playerPosList;
+                //var ls = shortPath;
                 //if(l1[i].position == shortPath[i].transform.position)
                 //{
                 //    Debug.Log("Commit");
@@ -209,13 +214,13 @@ public class MouseOver : MonoBehaviour
             }
             //shortPath.Clear();
         }
-        else
-        {
-            //Debug.Log("not moving");
-        }
+        //else
+        //{
+        //Debug.Log("not moving");
+        //}
 
     }
-
+}
     
 
 
@@ -249,4 +254,4 @@ public class MouseOver : MonoBehaviour
 
 
 
-}
+

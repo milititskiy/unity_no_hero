@@ -77,7 +77,7 @@
                 {
                     if (hit.collider.tag == "Tiles")
                     {
-                        Tile t = hit.collider.GetComponent<Tile>();
+                        Tile t = new Tile();
 
                         if (t.selectable)
                         {   //todo:move target
