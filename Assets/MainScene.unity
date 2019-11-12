@@ -3713,9 +3713,7 @@ GameObject:
   - component: {fileID: 520406079}
   - component: {fileID: 520406078}
   - component: {fileID: 520406080}
-  - component: {fileID: 520406081}
   - component: {fileID: 520406082}
-  - component: {fileID: 520406083}
   m_Layer: 0
   m_Name: GridBase
   m_TagString: Untagged
@@ -3812,7 +3810,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &520406081
+--- !u!114 &520406082
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3824,43 +3822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee2ca42bd9994a669355c536c542e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &520406082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520406077}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab2d4ac225aa846b9aa8799bc0aa43f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turn: 0
-  inCombat: 0
-  currentlySelected: 0
-  moving: 0
-  move: 3
-  jumpHeight: 2
-  moveSpeed: 4
-  jumpVelocity: 4.5
-  actualTargetTile: {fileID: 0}
-  red: {fileID: 0}
-  clear: {fileID: 0}
---- !u!114 &520406083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520406077}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f653f09be18e4213a2acbd43e28b95c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curUnit: {fileID: 639673305}
-  player: {fileID: 0}
 --- !u!1 &530854795
 GameObject:
   m_ObjectHideFlags: 0
@@ -4601,9 +4562,9 @@ GameObject:
   - component: {fileID: 639673304}
   - component: {fileID: 639673303}
   - component: {fileID: 639673302}
-  - component: {fileID: 639673307}
+  - component: {fileID: 639673301}
   - component: {fileID: 639673306}
-  - component: {fileID: 639673308}
+  - component: {fileID: 639673307}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Player
@@ -4611,6 +4572,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &639673301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639673300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87dc15a6eabf34214a72a9cabd314a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turn: 0
+  inCombat: 0
+  currentlySelected: 0
+  moving: 0
+  move: 3
+  jumpHeight: 2
+  moveSpeed: 4
+  jumpVelocity: 4.5
+  actualTargetTile: {fileID: 0}
+  red: {fileID: 2100000, guid: dc7913f9ec2674c05b8da54f4b983bcd, type: 2}
+  clear: {fileID: 0}
 --- !u!136 &639673302
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4679,7 +4663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639673300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4700,31 +4684,7 @@ MonoBehaviour:
   shortPath: []
   playerPosList: []
   curUnit: {fileID: 639673305}
-  player: {fileID: 0}
---- !u!114 &639673307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639673300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87dc15a6eabf34214a72a9cabd314a59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turn: 0
-  inCombat: 0
-  currentlySelected: 0
-  moving: 0
-  move: 3
-  jumpHeight: 2
-  moveSpeed: 4
-  jumpVelocity: 4.5
-  actualTargetTile: {fileID: 0}
-  red: {fileID: 0}
-  clear: {fileID: 0}
---- !u!120 &639673308
+--- !u!120 &639673307
 LineRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11992,7 +11952,6 @@ MonoBehaviour:
   shortPath: []
   playerPosList: []
   curUnit: {fileID: 0}
-  player: {fileID: 0}
 --- !u!120 &1547816072
 LineRenderer:
   m_ObjectHideFlags: 0

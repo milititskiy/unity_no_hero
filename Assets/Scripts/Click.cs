@@ -11,7 +11,7 @@ public class Click : TurnManager
     private List<GameObject> selectedObjects;
 
     private GameObject objToSpawn;
-    private GameObject [] tiles;
+    private GameObject[] tiles;
 
     private Color startcolor;
     Renderer rend;
@@ -19,18 +19,18 @@ public class Click : TurnManager
     private void Start()
     {
         selectedObjects = new List<GameObject>();
-        
+
     }
     // Update is called once per frame
     void Update()
     {
-       
-       
+
+
         if (Input.GetMouseButtonDown(1))
         {
             if (selectedObjects.Count > 0)
             {
-                 Debug.Log("right click");
+                Debug.Log("right click");
                 foreach (GameObject obj in selectedObjects)
                 {
                     obj.GetComponent<PlayerMove>().currentlySelected = false;
@@ -103,7 +103,7 @@ public class Click : TurnManager
 
 
 
-                        
+
 
 
 
@@ -112,7 +112,7 @@ public class Click : TurnManager
     {
         var endedTurn = TurnManager.endedTurn;
         //Debug.Log(endedTurn);
-        if(endedTurn == false)
+        if (endedTurn == false)
         {
             //Debug.Log("ended turn");
             //endedTurn = true;
@@ -124,25 +124,25 @@ public class Click : TurnManager
     }
 
     public void StartCombat()
-    {   
-        if(currentState != BattleStates.INCOMBAT)
+    {
+        if (currentState != BattleStates.INCOMBAT)
         {
             if (TurnManager.inCombat == false)
             {
                 TurnManager.inCombat = true;
             }
             currentState = BattleStates.INCOMBAT;
-            
+
         }
         Spawn();
-        
 
-       
-        
+
+
+
     }
-        
-    
-        
+
+
+
 
 
 
@@ -166,15 +166,15 @@ public class Click : TurnManager
         tiles = GameObject.FindGameObjectsWithTag("Tiles");
         var index = Random.Range(0, tiles.Length);
         Tile tile = tiles[index].GetComponent<Tile>();
-        if (tile!= null && tile.walkable)
+        if (tile != null && tile.walkable)
         {
             var p = tile.transform.position;
             Vector3 pos = new Vector3(p.x, 1.9F, p.z);
-            Instantiate(objToSpawn,pos, Quaternion.identity);
+            Instantiate(objToSpawn, pos, Quaternion.identity);
             Destroy(objToSpawn);
         }
     }
 
 
-    
+
 }
