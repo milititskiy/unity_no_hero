@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3822,6 +3822,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee2ca42bd9994a669355c536c542e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+
+--- !u!114 &520406082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520406077}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2d4ac225aa846b9aa8799bc0aa43f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turn: 0
+  inCombat: 0
+  currentlySelected: 0
+  moving: 0
+  move: 3
+  jumpHeight: 2
+  moveSpeed: 4
+  jumpVelocity: 4.5
+  actualTargetTile: {fileID: 0}
+  red: {fileID: 0}
+  clear: {fileID: 0}
+=======
+>>>>>>> 6f29afe9ee92c0708aa10ca857fceca69d26a87a
 --- !u!1 &530854795
 GameObject:
   m_ObjectHideFlags: 0

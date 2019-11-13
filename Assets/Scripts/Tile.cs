@@ -107,7 +107,7 @@ public class Tile : MonoBehaviour
 
         foreach (Collider item in colliders)
         {   
-            Tile tile  = item.GetComponent<Tile>();
+            Tile tile  = new Tile();
             if(tile != null && tile.walkable)
             {   
                 RaycastHit hit;
