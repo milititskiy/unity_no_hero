@@ -35,14 +35,16 @@ public class MouseOver : MonoBehaviour
     {
         //line = GetComponent<LineRenderer>();
         //line.useWorldSpace = true;
-        
 
+        
     }
     public void Init()
     {
-        Vector3 worldPos = GridBase.singleton.GetWorldCoordinatesFromTile(0, 1, 0);
-        curUnit.transform.position = worldPos;
 
+
+        //Vector3 worldPos = GridBase.singleton.GetWorldCoordinatesFromTile(0, 1, 0);
+        //curUnit.transform.position = worldPos;
+        curUnit = GameObject.FindGameObjectWithTag("Player").transform;
         GameObject go = new GameObject();
         go.transform.localPosition = new Vector3(0, 1.5f, 0);
         Material green = Resources.Load("Green", typeof(Material)) as Material;
@@ -109,13 +111,13 @@ public class MouseOver : MonoBehaviour
                         next = next.parent;
 
                     }
-                    Debug.Log(shortPath.Count);
+                    
                     line.positionCount = shortPath.Count;
                     
                     //var j = shortPath.Count;
                     for (int i = 0; i < shortPath.Count; i++)
                     {
-                        Debug.Log("hello");
+                        
                         line.SetPosition(i, shortPath[i].transform.position);
                         
                     }
@@ -179,34 +181,40 @@ public class MouseOver : MonoBehaviour
 
 
         //if (Input.GetMouseButtonDown(0))
-        //{   
-        //    //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(player)
+        {
+            //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //    if(shortPath.Count > 0)
-        //    {
-        //        //Debug.Log(">0");
-        //        //Debug.Log(shortPath.Count);
-        //        //Debug.Log("hello");
-        //        var p = player.transform.position;
-        //        //lineTime += Time.deltaTime;
-        //        var pX = Mathf.RoundToInt(p.x / 2.0f);
-        //        var pY = Mathf.RoundToInt(p.y * 0);
-        //        var pZ = Mathf.RoundToInt(p.z / 2.0f);
-        //        var distance = (mousePos - p).magnitude;
-        //        //var playerTile = GridBase.singleton.GetWorldCoordinatesFromTile(pX, pY, pZ);
+            if (shortPath.Count > 0)
+            {
+                //Debug.Log(">0");
+                //Debug.Log(shortPath.Count);
+                //Debug.Log("hello");
+                var p = player.transform.position;
+                //lineTime += Time.deltaTime;
+                var pX = Mathf.RoundToInt(p.x / 2.0f);
+                var pY = Mathf.RoundToInt(p.y * 0);
+                var pZ = Mathf.RoundToInt(p.z / 2.0f);
+                var distance = (mousePos - p).magnitude;
+                var playerTile = GridBase.singleton.GetWorldCoordinatesFromTile(pX, pY, pZ);
                 
-             
+                var tile = GridBase.singleton.GetTileFromWorldPosition(curUnit.transform.position);
+
+                var pos = curUnit.transform.position;
+                Debug.Log(pos);
                 
-        //    }
-            
-            
-            
+                
+
+            }
 
 
-            
-            
-        //}
-       
+
+
+
+
+
+        }
+
     }
         
     
