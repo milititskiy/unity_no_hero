@@ -159,7 +159,7 @@ namespace SA.TB
             cube.AddComponent<Tile>();
             cube.transform.parent = go.transform;
             cube.transform.localPosition = Vector3.zero;
-            cube.transform.localEulerAngles = new Vector3(90, 0, 0);
+            //cube.transform.localEulerAngles = new Vector3(90, 0, 0);
             cube.name = "Tiles" + z.ToString();
             cube.tag = "Tiles";
             cube.transform.localScale = Vector3.one * 2.0f;
