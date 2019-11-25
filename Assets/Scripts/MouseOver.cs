@@ -10,11 +10,12 @@ public class MouseOver : MonoBehaviour
 
     public List<Tile> shortPath = new List<Tile>();
     public List<Transform> playerPosList = new List<Transform>();
-   
-    
+
+    public bool useCurve = true;
+    public float width = 1.0f;
 
     LineRenderer line;
-    GameObject go;
+    
 
     public Transform curUnit;
 
@@ -50,7 +51,7 @@ public class MouseOver : MonoBehaviour
         GameObject go = new GameObject();
         go.transform.localPosition = new Vector3(0, 1.5f, 0);
         //GameObject go = GameObject.FindGameObjectWithTag("Player");
-        go.transform.position = curUnit.transform.position;
+        //go.transform.position = curUnit.transform.position;
         Material green = Resources.Load("Green", typeof(Material)) as Material;
         go.name = "move line";
         go.transform.tag = "Line";
@@ -59,18 +60,8 @@ public class MouseOver : MonoBehaviour
         line.useWorldSpace = false;
         line.startWidth = 0.2f;
         line.endWidth = 0.2f;
-
-
-
-
-
-
-
-
-
-
-
     }
+
 
     public static MouseOver singleton;
 
@@ -86,26 +77,18 @@ public class MouseOver : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Line")
-        {
-            Debug.Log("Collision 2D happened");
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        GameObject go = GameObject.FindGameObjectWithTag("Line");
-        if (collision.gameObject.tag == "Line")
-        {
-            Debug.Log("Collision happened ");
-        }
-    }
-
-
     void OnMouseOver()
     {
+
+
+
+
+
+
+
+
+
+
 
        
 
@@ -114,28 +97,28 @@ public class MouseOver : MonoBehaviour
 
         //Debug.Log(go.transform.position);
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        PlayerMove player = GetComponent<PlayerMove>();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            
 
+            PlayerMove player = GetComponent<PlayerMove>();
             Tile tile = hit.collider.GetComponent<Tile>();
             
+
             if (hit.collider.CompareTag("Tiles"))
             {
-                if (tile.selectable == true)
-                //if(Input.GetMouseButtonDown(0) && tile.selectable)
+                if (tile.selectable)
                 {
                     tile.selectable = false;
                     tile.hoverOn = true;
                     //tile.target = true;
                    
+                    
+                   
                     shortPath.Clear();
                     Tile next = tile;
-                    
-                    
                     while (next != null)
                     {
                         
@@ -144,88 +127,105 @@ public class MouseOver : MonoBehaviour
                         
                        
                     }
-                    //Debug.Log(shortPath.Count);
+                    
                     line.positionCount = shortPath.Count;
 
-                    //var j = shortPath.Count;
+                    //Debug.Log(shortPath.Count - 1);
+                    
+
                     for (int i = 0; i < shortPath.Count; i++)
                     {
                         //line.SetPosition(0, go.transform.position);
                         line.SetPosition(i, shortPath[i].transform.position);
-                        
                     }
 
+
+                    
+                    if (player.moving)
+                    {
+
+
+                        var sel = GetComponent<TacticsMove>();
+
+                        foreach (Tile t in sel.selectableTiles)
+                        {
+                            t.selectable = false;
+
+                        }
+
+
+                        
+                        var p = curUnit.transform.position;
+
+                        var pX = Mathf.RoundToInt(p.x / 2.0f);
+                        var pY = Mathf.RoundToInt(p.y * 0);
+                        var pZ = Mathf.RoundToInt(p.z / 2.0f);
+
+                        var playerTile = GridBase.singleton.GetWorldCoordinatesFromTile(pX, pY, pZ);
+                        
+                        StartCoroutine(RemoveSegments());
+
+                    }
+
+                }
+                
+                
                     
 
 
 
 
-                }
 
 
             }
 
-            if (player.moving)
-            //if(Input.GetMouseButtonDown(0))
-            {
-                //var p = player.transform.position;
-                var p = curUnit.transform.position;
-
-                var pX = Mathf.RoundToInt(p.x / 2.0f);
-                var pY = Mathf.RoundToInt(p.y * 0);
-                var pZ = Mathf.RoundToInt(p.z / 2.0f);
-               
-                var playerTile = GridBase.singleton.GetWorldCoordinatesFromTile(pX, pY, pZ);
-                //Debug.Log(playerTile);
-                //var pos = curUnit.transform.position;
-                //line.transform.position = pos;
-                StartCoroutine(RemoveSegments());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            }
-
-
-
-
-
-
-
-
+            
 
         }
 
+    }
 
-        //if (Input.GetMouseButtonDown(0))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         
 
-    }
 
     IEnumerator RemoveSegments()
     {
-        Debug.Log("works");
+        
         for (int i = shortPath.Count - 1; i > 0; i--)
         {
             line.positionCount = i;
             yield return new WaitForSeconds(0.5f);
+            
         }
     }
 

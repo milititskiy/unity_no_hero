@@ -9,7 +9,7 @@ public class TacticsMove : MonoBehaviour
     public bool inCombat = false;
     public bool currentlySelected = false;
 
-    List<Tile> selectableTiles = new List<Tile>();
+    public List<Tile> selectableTiles = new List<Tile>();
     GameObject[] tiles;
 
     public Stack<Tile> path = new Stack<Tile>();

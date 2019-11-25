@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SA.TB;
 
 public class Tile : MonoBehaviour
 {
@@ -83,10 +84,14 @@ public class Tile : MonoBehaviour
     public void FindNeighbors(float jumpHeight,Tile target)
     {
         Reset();
-        CheckTile(Vector3.forward,jumpHeight,target);
-        CheckTile(-Vector3.forward,jumpHeight,target);
-        CheckTile(Vector3.right,jumpHeight,target);
-        CheckTile(-Vector3.right,jumpHeight,target);
+        Vector3 a = new Vector3(2, 0, 2);
+        Vector3 b = new Vector3(1, 0, 1);
+        var sum = a + b;
+        //CheckTile(a, jumpHeight, target);
+        CheckTile(Vector3.forward, jumpHeight, target);
+        CheckTile(-Vector3.forward, jumpHeight, target);
+        CheckTile(Vector3.right, jumpHeight, target);
+        CheckTile(-Vector3.right, jumpHeight, target);
         //diagonal movement
         //var plusRight = Vector3.right + Vector3.forward;
         //var minusRight = -Vector3.right + -Vector3.forward;
@@ -104,12 +109,16 @@ public class Tile : MonoBehaviour
     {   
         Vector3 halfExtents = new Vector3(0.25f,(1+ jumpHeight)/2.0f,0.25f);
         Collider[] colliders = Physics.OverlapBox(transform.position + direction,halfExtents);
+        
 
         foreach (Collider item in colliders)
         {   
             Tile tile  = item.GetComponent<Tile>();
             if(tile != null && tile.walkable)
-            {   
+            {
+
+                
+                
                 RaycastHit hit;
                 if(!Physics.Raycast(tile.transform.position,Vector3.up,out hit,1) || (tile == target))
                 {  
